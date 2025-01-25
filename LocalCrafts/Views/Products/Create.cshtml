@@ -1,0 +1,193 @@
+﻿@model LocalCrafts.Models.Product
+
+@{
+    ViewData["Title"] = "Create Product";
+}
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Product</title>
+
+    <style>
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .row {
+            margin-top: 20px;
+        }
+
+        .input-box {
+            margin-bottom: 20px;
+        }
+
+            .input-box h6 {
+                font-size: 14px;
+                color: #333;
+                margin-bottom: 5px;
+            }
+
+        .form-control {
+            border-radius: 8px;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+        }
+
+            .form-control:focus {
+                border-color: #007bff;
+                box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+            }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+            .btn-primary:hover {
+                background-color: #0056b3;
+                border-color: #0056b3;
+            }
+
+        .form-control[type="file"] {
+            padding: 6px;
+        }
+
+        .mt-3 {
+            margin-top: 20px !important;
+        }
+
+        .text-danger {
+            font-size: 12px;
+            color: red;
+        }
+
+        .footer {
+            background-color: #f1f1f1;
+            padding: 20px 0;
+            margin-top: 30px;
+        }
+
+            .footer p {
+                font-size: 14px;
+                color: #666;
+            }
+    </style>
+</head>
+
+<body>
+    <div class="page-body-wrapper">
+        <div class="page-body">
+            <div class="container-fluid">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Create Product</h5>
+                    </div>
+                    <div class="card-body">
+                        <form asp-action="Create" enctype="multipart/form-data" method="post" class="input-items">
+                            <div class="row gy-3">
+                                <!-- Product Name Input -->
+                                <div class="col-md-6">
+                                    <div class="input-box">
+                                        <h6>Product Name</h6>
+                                        <input asp-for="Name" class="form-control" placeholder="Enter Product Name" />
+                                        <span asp-validation-for="Name" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Description Input -->
+                                <div class="col-md-6">
+                                    <div class="input-box">
+                                        <h6>Description</h6>
+                                        <input asp-for="Description" class="form-control" placeholder="Enter Product Description" />
+                                        <span asp-validation-for="Description" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Price Input -->
+                                <div class="col-md-6">
+                                    <div class="input-box">
+                                        <h6>Price</h6>
+                                        <input asp-for="Price" class="form-control" placeholder="Enter Product Price" />
+                                        <span asp-validation-for="Price" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Quantity Input -->
+                                <div class="col-md-6">
+                                    <div class="input-box">
+                                        <h6>Quantity</h6>
+                                        <input asp-for="Quantity" class="form-control" placeholder="Enter Product Quantity" />
+                                        <span asp-validation-for="Quantity" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Product Image Upload -->
+                                <div class="col-md-6">
+                                    <div class="input-box">
+                                        <h6>Product Image</h6>
+                                        <input asp-for="ImageFile" class="form-control form-control-lg" type="file" />
+                                        <span asp-validation-for="ImageFile" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Category Selection -->
+                                <div class="col-md-6">
+                                    <div class="input-box">
+                                        <h6>Category</h6>
+                                        <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId" required>
+                                            <option value="">Select Category</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Seller Selection -->
+                                <div class="col-md-6">
+                                    <div class="input-box">
+                                        <h6>Seller</h6>
+                                        <select asp-for="SellerId" class="form-control" asp-items="ViewBag.SellerId" required>
+                                            <option value="">Select Seller</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="col-12 text-center mt-3">
+                                <div class="input-box">
+                                    <input type="submit" value="Create Product" class="btn btn-primary" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        @if (TempData["ShowSuccess"] != null)
+        {
+            <text>
+                        Swal.fire({
+                            title: 'Success!',
+                            text: 'Product created successfully!',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = '@Url.Action("Index", "Home")#products-section';
+                            }
+                        });
+            </text>
+        }
+    </script>
+</body>

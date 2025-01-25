@@ -1,0 +1,99 @@
+﻿@model IEnumerable<LocalCrafts.Models.Product>
+
+@{
+    ViewData["Title"] = "All Products";
+}
+
+<div class="page-body">
+    <!-- All Products Table Start -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card card-table">
+                    <div class="card-body">
+                        <div class="title-header option-title">
+                            <h5>All Products</h5>
+                            <form class="d-inline-flex">
+                                <a asp-action="Create" class="align-items-center btn btn-theme d-flex">
+                                    <i data-feather="plus-square"></i> Add New
+                                </a>
+                            </form>
+                        </div>
+                        <div class="table-responsive theme-scrollbar">
+                            <table class="table seller-table" id="table_id">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <input id="checkall" class="custom-checkbox" type="checkbox" name="text">
+                                        </th>
+                                        <th>Product Image</th>
+                                        <th>Product Name</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>Category</th>
+                                        <th>Seller</th>
+                                        <th>Description</th> <!-- New column for Description -->
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <input class="custom-checkbox" type="checkbox" name="text">
+                                            </td>
+                                            <td>
+                                                <div class="table-image">
+                                                    <img src="@item.Image" alt="@item.Name" style="width: 100px; height: 100px;" />
+                                                </div>
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Price)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Quantity)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Seller.Name)
+                                            </td>
+                                            <td style="max-width: 300px; word-wrap: break-word; white-space: normal;">
+                                                @item.Description
+                                            </td>
+                                            <td>
+                                                <ul class="d-flex align-items-center justify-content-center">
+                                                    <li>
+                                                        <a asp-action="Details" asp-route-id="@item.ProductId">
+                                                            <i class="ri-eye-line"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a asp-action="Edit" asp-route-id="@item.ProductId">
+                                                            <i class="ri-pencil-line"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a asp-action="Delete" asp-route-id="@item.ProductId">
+                                                            <i class="ri-delete-bin-line"></i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- All Products Table Ends-->
+</div>

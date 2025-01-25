@@ -1,0 +1,42 @@
+﻿@model IEnumerable<LocalCrafts.Models.Seller>
+
+<div class="section section-padding pt-0">
+    <div class="container">
+
+        <!-- Section Title Start -->
+        <div class="section-title2 text-center">
+            <h2 class="title">Our Sellers</h2>
+            <p>Browse through our skilled artisans and creators.</p>
+        </div>
+        <!-- Section Title End -->
+
+        <div class="row row-cols-lg-4 row-cols-sm-2 row-cols-1 learts-mb-n40">
+
+          
+            @foreach (var seller in Model)
+            {
+                <div class="col learts-mb-40">
+                    <div class="category-banner5">
+                        <a asp-controller="Product" asp-action="SellerProducts" asp-route-sellerId="@seller.Id" class="inner">
+                            <div class="image">
+                                @if (!string.IsNullOrEmpty(seller.Image))
+                                {
+                                    <img src="@seller.Image" alt="@seller.Name" class="img-fluid">
+                                }
+                                else
+                                {
+                                    <img src="https://via.placeholder.com/150" alt="Default Image" class="img-fluid">
+                                }
+                            </div>
+                            <div class="content">
+                                <h3 class="title">@seller.Name</h3>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            }
+
+        </div>
+
+    </div>
+</div>

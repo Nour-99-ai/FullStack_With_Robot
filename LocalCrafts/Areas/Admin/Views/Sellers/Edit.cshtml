@@ -1,0 +1,62 @@
+﻿@model LocalCrafts.Models.Seller
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="page-body-wrapper">
+    <div class="page-body">
+        <h1>Edit</h1>
+
+        <h4>Seller</h4>
+        <hr />
+
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <form asp-action="Edit" enctype="multipart/form-data" method="post" class="form-card">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+
+                    <!-- Name Field -->
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                    <!-- Email Field -->
+                    <div class="form-group">
+                        <label asp-for="Email" class="control-label"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <!-- Bio Field -->
+                    <div class="form-group">
+                        <label asp-for="Bio" class="control-label"></label>
+                        <textarea asp-for="Bio" class="form-control" rows="4"></textarea>
+                        <span asp-validation-for="Bio" class="text-danger"></span>
+                    </div>
+
+                    <!-- Image Field -->
+                    <div class="form-group">
+                        <label asp-for="Image" class="control-label"></label>
+                        <input type="file" asp-for="Image" class="form-control" />
+                        <span asp-validation-for="Image" class="text-danger"></span>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Back to List -->
+        <div>
+            <a asp-action="Index">Back to List</a>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,187 @@
+﻿@model LocalCrafts.Models.Order
+
+<style>
+    /* Reset default styles */
+    body {
+        margin: 0;
+        font-family: 'Arial', sans-serif;
+        background-color: #f8f9fa;
+        color: #212529;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #ffffff;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+    }
+
+    h2, h3 {
+        color: #343a40;
+        font-weight: 600;
+    }
+
+    .card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        margin-bottom: 20px;
+    }
+
+    .card-header {
+        background-color: #343a40;
+        color: #fff;
+        padding: 10px;
+        font-size: 16px; /* Smaller font size */
+        font-weight: bold;
+    }
+
+    .card-body {
+        padding: 10px;
+        line-height: 1.4;
+    }
+
+    /* Table styles */
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        font-size: 12px; /* Smaller font size */
+    }
+
+        .table th, .table td {
+            padding: 3px 6px; /* Reduced padding to the minimum */
+            text-align: left;
+            border: 1px solid #ddd;
+            width: auto; /* Automatically adjust column width */
+        }
+
+        .table th {
+            background-color: #f1f1f1;
+            font-weight: bold;
+        }
+
+        .table tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .table tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+    /* Form styling */
+    .form-select {
+        padding: 6px;
+        font-size: 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #fff;
+        transition: border-color 0.3s;
+    }
+
+        .form-select:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+    .page-body-wrapper {
+        padding: 20px;
+    }
+
+    .page-body {
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+    }
+
+    .mt-4 {
+        margin-top: 1.5rem !important;
+    }
+</style>
+
+@{
+    ViewData["Title"] = "Order Details";
+}
+
+<div class="page-body-wrapper">
+    <div class="page-body">
+        <div class="container mt-4">
+            <h2>Order Details</h2>
+            <div class="card">
+                <div class="card-header">
+                    <h4>Order #@Model.OrderId</h4>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>OrderID</th>
+                                <th>Customer</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>City</th>
+                                <th>Address</th>
+                                <th>Additional Info</th>
+                                <th>Total Amount</th>
+                                <th>Order Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>@Model.OrderId</td>
+                                <td>@Model.FirstName @Model.LastName</td>
+                                <td>@Model.Email</td>
+                                <td>@Model.PhoneNumber</td>
+                                <td>@Model.City</td>
+                                <td>@Model.Address</td>
+                                <td>@Model.AdditionalInfo</td>
+                                <td>@Model.TotalAmount.ToString("C")</td>
+                                <td>@Model.OrderDate.ToString("MM/dd/yyyy")</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <h3 class="mt-4">Order Items</h3>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>OrderID</th>
+                        <th>ItemID</th>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Subtotal</th>
+                        <th>Seller Name</th>
+                        <th>Seller Phone</th>
+                        <th>Delivery Date</th>
+                        <th>Current Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.OrderItems)
+                    {
+                        <tr>
+                            <td>@Model.OrderId</td>
+                            <td>@item.OrderItemId</td>
+                            <td>@item.ProductName</td>
+                            <td>@item.Price.ToString("C")</td>
+                            <td>@item.Quantity</td>
+                            <td>@item.Subtotal.ToString("C")</td>
+                            <td>@item.Product.Seller.Name</td>
+                            <td>@item.Product.Seller.PhoneNumber</td>
+                            <td>@string.Format("{0:MM/dd/yyyy}", item.DeliveryDate)</td>
+                            <td>@item.OrderItemStatus</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,43 @@
+﻿@using LocalCrafts.Models.ViewModels
+@model SearchResultsViewModel
+
+<h2>Results for "@Model.Query"</h2>
+
+@if (Model.Categories.Any())
+{
+    <h3>Categories</h3>
+    <ul>
+        @foreach (var category in Model.Categories)
+        {
+            <li>@category.CategoryName</li>
+        }
+    </ul>
+}
+
+@if (Model.Sellers.Any())
+{
+    <h3>Sellers</h3>
+    <ul>
+        @foreach (var seller in Model.Sellers)
+        {
+            <li>@seller.Name</li>
+        }
+    </ul>
+}
+
+@if (Model.Products.Any())
+{
+    <h3>Products</h3>
+    <ul>
+        @foreach (var product in Model.Products)
+        {
+            <li>@product.Name</li>
+        }
+    </ul>
+}
+}
+
+@if (!Model.Categories.Any() && !Model.Sellers.Any() && !Model.Products.Any())
+{
+    <p>No results found for "@Model.Query".</p>
+}

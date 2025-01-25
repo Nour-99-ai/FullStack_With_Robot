@@ -1,0 +1,45 @@
+﻿@model IEnumerable<LocalCrafts.Models.Contactus>
+
+<div class="page-body-wrapper">
+    <div class="page-body">
+        <h2>Contact Messages</h2>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card card-table">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th style="font-size: 12px;">#</th>
+                                            <th style="font-size: 12px;">Name</th>
+                                            <th style="font-size: 12px;">Email</th>
+                                            <th style="font-size: 12px;">Phone</th>
+                                            <th style="font-size: 12px;">Message</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var message in Model)
+                                        {
+                                            <tr>
+                                                <td style="font-size: 12px;">@message.Id</td>
+                                                <td style="font-size: 12px;">@message.Name</td>
+                                                <td style="font-size: 12px;">@message.Email</td>
+                                                <td style="font-size: 12px;">@message.Phone</td>
+                                                <td style="font-size: 12px;">
+                                                    @message.Message
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

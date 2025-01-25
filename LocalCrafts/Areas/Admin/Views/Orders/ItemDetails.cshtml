@@ -1,0 +1,109 @@
+﻿@model LocalCrafts.Models.OrderItem
+
+<style>
+    body {
+        margin: 0;
+        font-family: 'Arial', sans-serif;
+        background-color: #f8f9fa;
+        color: #212529;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #ffffff;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+    }
+
+    h2 {
+        color: #343a40;
+        font-weight: 600;
+    }
+
+    .table-responsive {
+        overflow-x: auto;
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        font-size: 14px;
+    }
+
+        .table th, .table td {
+            padding: 10px 15px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        .table th {
+            background-color: #f1f1f1;
+            font-weight: bold;
+        }
+
+        .table tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .table tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+</style>
+
+<div class="page-body-wrapper">
+    <div class="page-body">
+        <div class="container mt-4">
+            <h2>Order and Item Details</h2>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>OrderID</th>
+                            <th>Customer</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>City</th>
+                            <th>Address</th>
+                            <th>Total Amount</th>
+                            <th>Order Date</th>
+                            <th>ItemID</th>
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Subtotal</th>
+                            <th>Seller Name</th>
+                            <th>Seller Phone</th>
+                            <th>Delivery Date</th>
+                            <th>Current Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>@Model.Order.OrderId</td>
+                            <td>@Model.Order.FirstName @Model.Order.LastName</td>
+                            <td>@Model.Order.Email</td>
+                            <td>@Model.Order.PhoneNumber</td>
+                            <td>@Model.Order.City</td>
+                            <td>@Model.Order.Address</td>
+                            <td>@Model.Order.TotalAmount.ToString("C")</td>
+                            <td>@Model.Order.OrderDate.ToString("MM/dd/yyyy")</td>
+                            <td>@Model.OrderItemId</td>
+                            <td>@Model.ProductName</td>
+                            <td>@Model.Price.ToString("C")</td>
+                            <td>@Model.Quantity</td>
+                            <td>@Model.Subtotal.ToString("C")</td>
+                            <td>@Model.Product.Seller.Name</td>
+                            <td>@Model.Product.Seller.PhoneNumber</td>
+                            <td>@string.Format("{0:MM/dd/yyyy}", Model.DeliveryDate)</td>
+                            <td>@Model.OrderItemStatus</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

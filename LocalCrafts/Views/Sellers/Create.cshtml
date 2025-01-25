@@ -1,0 +1,188 @@
+﻿@model LocalCrafts.Models.Seller
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Seller</title>
+
+    <style>
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .row {
+            margin-top: 20px;
+        }
+
+        .input-box {
+            margin-bottom: 20px;
+        }
+
+            .input-box h6 {
+                font-size: 14px;
+                color: #333;
+                margin-bottom: 5px;
+            }
+
+        .form-control {
+            border-radius: 8px;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+        }
+
+            .form-control:focus {
+                border-color: #007bff;
+                box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+            }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+            .btn-primary:hover {
+                background-color: #0056b3;
+                border-color: #0056b3;
+            }
+
+        .form-control[type="file"] {
+            padding: 6px;
+        }
+
+        .mt-3 {
+            margin-top: 20px !important;
+        }
+
+        .text-danger {
+            font-size: 12px;
+            color: red;
+        }
+
+        .footer {
+            background-color: #f1f1f1;
+            padding: 20px 0;
+            margin-top: 30px;
+        }
+
+            .footer p {
+                font-size: 14px;
+                color: #666;
+            }
+    </style>
+</head>
+
+<body>
+    <div class="page-body-wrapper">
+        <div class="page-body">
+            <div class="container-fluid">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Create Seller</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="restaurant-tab">
+                            <div class="tab-content">
+                                <div class="tab-pane fade show active" id="Settings" role="tabpanel" aria-labelledby="Settings-tab">
+                                    <form asp-action="Create" enctype="multipart/form-data" method="post" class="input-items">
+                                        <div class="row gy-3">
+                                            <!-- Name Input -->
+                                            <div class="col-md-6">
+                                                <div class="input-box">
+                                                    <h6>Name</h6>
+                                                    <input asp-for="Name" class="form-control" placeholder="Enter Your Name" />
+                                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                            <!-- Email Input -->
+                                            <div class="col-md-6">
+                                                <div class="input-box">
+                                                    <h6>Email</h6>
+                                                    <input asp-for="Email" class="form-control" placeholder="Enter Your Email" />
+                                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                            <!-- Phone Number Input -->
+                                            <div class="col-md-6">
+                                                <div class="input-box">
+                                                    <h6>Phone Number</h6>
+                                                    <input asp-for="PhoneNumber" class="form-control" value="+962" id="PhoneNumber" oninput="validatePhoneNumber()" />
+                                                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                            <!-- Bio Input -->
+                                            <div class="col-md-6">
+                                                <div class="input-box">
+                                                    <h6>Bio</h6>
+                                                    <input asp-for="Bio" class="form-control" placeholder="Enter Your Bio" />
+                                                    <span asp-validation-for="Bio" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                            <!-- Image Upload -->
+                                            <div class="col-md-6">
+                                                <div class="input-box">
+                                                    <h6>Image</h6>
+                                                    <input asp-for="ImageFile" class="form-control form-control-lg" type="file" />
+                                                    <span asp-validation-for="ImageFile" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 text-center mt-3">
+                                            <div class="input-box">
+                                                <input type="submit" value="Create" class="btn btn-primary" />
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        @if (TempData["ShowSuccess"] != null)
+        {
+            <text>
+                    Swal.fire({
+                        title: 'Welcome!',
+                        text: 'You are now a seller, go to your profile and add products.',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                                window.location.href = '@Url.Action("Index", "Home")#sellers-section';
+                        }
+                    });
+            </text>
+        }
+
+                 // This script ensures that the phone number starts with +962 and remains visible
+        function validatePhoneNumber() {
+            var phoneInput = document.getElementById('PhoneNumber');
+            // This ensures that the user can add digits after +962 but not remove it
+            if (!phoneInput.value.startsWith('+962')) {
+                phoneInput.value = '+962' + phoneInput.value.replace(/^(\+962)/, '');
+            }
+        }
+    </script>
+
+
+</body>

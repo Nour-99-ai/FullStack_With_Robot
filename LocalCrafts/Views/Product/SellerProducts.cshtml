@@ -1,0 +1,133 @@
+﻿@using System.Security.Claims
+
+@{
+    ViewData["Title"] = "Seller Products";
+ }
+<!-- Page Title/Header Start -->
+<div class="page-title-section section" style="background-color: #f0f8ff; padding: 20px 0;">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="page-title">
+                    <h1 class="title" style="font-size: 24px; margin-bottom: 10px;">@Model.SellerName</h1> 
+                    <ul class="breadcrumb" style="font-size: 14px; margin-top: 0;">
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item active">@Model.SellerName</li> 
+                    </ul>
+                </div>
+            </div>
+
+            @if (User.Identity.IsAuthenticated && User.IsInRole("Seller"))
+            {
+                <div class="col text-right" style="position: relative;">
+                    <a href="@Url.Action("Create", "Products")" class="btn btn-primary btn-sm" style="position: absolute; right: 0; top: 50%; transform: translateY(-50%); padding: 5px 10px; font-size: 12px;">
+                        + Add Product
+                    </a>
+                    <a href="@Url.Action("PendingItems", "Orders", new { sellerId = Model.SellerId })"
+                       class="btn btn-secondary btn-sm"
+                       style="position: absolute; right: 120px; top: 50%; transform: translateY(-50%); padding: 5px 10px; font-size: 12px;">
+                        View Pending Items
+                    </a>
+
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+<!-- Page Title/Header End -->
+
+<!-- Seller Bio Section Start -->
+<div class="section section-padding pb-0">
+    <div class="container">
+        <div class="row learts-mb-n30">
+            <div class="col-md-6 col-12 align-self-center learts-mb-30">
+                <div class="about-us3">
+                    <span class="sub-title">@Model.SellerBio</span> 
+                </div>
+            </div>
+            <div class="col-md-6 col-12 text-center learts-mb-30">
+                <img src="@(!string.IsNullOrEmpty(Model.SellerImage) ? Model.SellerImage : "https://via.placeholder.com/150")"
+                     alt="@Model.SellerName"
+                     class="img-fluid" style="max-width: 300px; height: auto;"> 
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Seller Bio Section End -->
+
+<!-- Products Section Start -->
+<div class="section section-padding">
+    <div class="container">
+        <div class="section-title2 text-center">
+            <h2 class="title">Products by @Model.SellerName</h2> 
+        </div>
+
+        <div class="product-carousel">
+            @foreach (var product in Model.Products)
+            {
+                <div class="col">
+                    <div class="product">
+                        <div class="product-thumb">
+                            <a href="@Url.Action("ProductDetails", "Home", new { id = product.ProductId })" class="image">
+                                <img src="@product.Image" alt="Product Image">
+                                <img class="image-hover" src="@product.Image" alt="Product Image">
+                            </a>
+                            <a href="@Url.Action("Wishlist", "Home")" class="add-to-wishlist hintT-left" data-hint="Add to wishlist">
+                                <i class="far fa-heart"></i>
+                            </a>
+                        </div>
+                        <div class="product-info">
+                            <h6 class="title"><a href="@Url.Action("ProductDetails", "Home", new { id = product.ProductId })">@product.Name</a></h6>
+                            <span class="price">$@product.Price</span>
+                            <div class="product-buttons">
+                                <a href="@Url.Action("Details", "ProductDetails", new { id = product.ProductId })" class="product-button hintT-top" data-hint="Quick View">
+                                    <i class="fas fa-search"></i>
+                                </a>
+                                <a href="@Url.Action("AddToCart", "Cart", new { productId = product.ProductId, sellerId = product.SellerId })"
+                                   class="product-button add-to-cart" data-hint="Add to Cart"
+                                   data-product-id="@product.ProductId" data-seller-id="@product.SellerId">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </a>
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<!-- Products Section End -->
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).on('click', '.add-to-cart', function (e) {
+        e.preventDefault();
+        const url = $(this).attr('href'); 
+        const productId = $(this).data('product-id'); 
+
+        $.ajax({
+            url: url,
+            method: 'POST',
+            data: { productId: productId },
+            success: function (response) {
+                if (response.success) {
+                    $('.cart-count').text(response.totalItems); 
+
+                    const cartHtml = response.cartHtml; 
+                    $('.minicart-product-list').html(cartHtml); 
+                    $('.sub-total .amount').text(response.total.toFixed(2)); 
+
+                    alert('Product added to cart successfully!');
+                } else {
+                    alert('Failed to add product to the cart.');
+                }
+            },
+            error: function () {
+                alert('An error occurred while adding the product to the cart.');
+            }
+        });
+    });
+</script>

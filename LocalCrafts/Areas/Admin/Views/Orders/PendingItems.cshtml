@@ -1,0 +1,63 @@
+﻿@model IEnumerable<LocalCrafts.Models.OrderItem>
+
+<div class="page-body-wrapper">
+    <div class="page-body">
+        <h2>Pending Items</h2>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card card-table">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th style="font-size: 12px;">Item ID</th>
+                                            <th style="font-size: 12px;">Product</th>
+                                            <th style="font-size: 12px;">Qty</th>
+                                            <th style="font-size: 12px;">Price</th>
+                                            <th style="font-size: 12px;">Customer</th>
+                                            <th style="font-size: 12px;">Customer Phone</th>
+                                            <th style="font-size: 12px;">Order Date</th>
+                                            <th style="font-size: 12px;">Seller</th> <!-- New Column for Seller Name -->
+                                            <th style="font-size: 12px;">Seller Phone</th> <!-- New Column for Seller Phone -->
+                                            <th style="font-size: 12px;">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td style="font-size: 12px;">@item.OrderItemId</td>
+                                                <td style="font-size: 12px;">@item.ProductName</td>
+                                                <td style="font-size: 12px;">@item.Quantity</td>
+                                                <td style="font-size: 12px;">@item.Subtotal.ToString("C")</td>
+                                                <td style="font-size: 12px;">@item.Order.FirstName @item.Order.LastName</td> <!-- Display Customer Name -->
+                                                <td style="font-size: 12px;">@item.Order.PhoneNumber</td> <!-- Display Customer Phone -->
+                                                <td style="font-size: 12px;">@item.Order.OrderDate.ToString("MM/dd/yyyy")</td> <!-- Display Order Date -->
+                                                <td style="font-size: 12px;">@item.Product.Seller.Name</td> <!-- Display Seller Name -->
+                                                <td style="font-size: 12px;">@item.Product.Seller.PhoneNumber</td> <!-- Display Seller Phone -->
+                                                <td style="font-size: 12px;">
+                                                    <form method="post" action="@Url.Action("UpdateOrderItemStatus", "Orders")">
+                                                        <input type="hidden" name="orderItemId" value="@item.OrderItemId" />
+                                                        @Html.DropDownListFor(
+                                                                 model => item.OrderItemStatus,
+                                                                 new SelectList(new[] { "Pending", "Approved", "Rejected" }, item.OrderItemStatus),
+                                                                 new { @class = "form-select", required = "required" }
+                                                                 )
+                                                        <button type="submit" class="btn btn-primary mt-2">Update Status</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

@@ -1,0 +1,81 @@
+﻿@model IEnumerable<LocalCrafts.Models.OrderItem>
+
+@{
+    ViewData["Title"] = "Pending Items";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4">Pending Items</h2>
+
+    @if (Model != null && Model.Any())
+    {
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Product Name</th>
+                    <th>Quantity</th>
+                    <th>Order Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Order.OrderId</td>
+                        <td>@item.ProductName</td>
+                        <td>@item.Quantity</td>
+                        <td>@item.Order.OrderDate.ToString("yyyy-MM-dd")</td>
+                        <td>@item.OrderItemStatus</td>
+                        <td>
+                            <form asp-action="UpdateOrderItemStatus" asp-controller="Orders" method="post">
+                                <input type="hidden" name="orderItemId" value="@item.OrderItemId" />
+                                <input type="hidden" name="sellerId" value="@item.Product.SellerId" />
+
+                                <select name="newStatus" class="form-control form-control-sm" onchange="toggleDeliveryDateField(this, @item.OrderItemId)">
+                                    <option value="Pending" selected>Pending</option>
+                                    <option value="Approved">Approved</option>
+                                    <option value="Rejected">Rejected</option>
+                                </select>
+
+                                <div id="deliveryDateField-@item.OrderItemId" style="display: @(item.OrderItemStatus == "Approved" ? "block" : "none")">
+                                    <label for="deliveryDate">Delivery Date</label>
+                                    <input type="date" name="deliveryDate" class="form-control form-control-sm" />
+                                </div>
+
+                                <button type="submit" class="btn btn-primary btn-sm mt-2">Update</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No pending items found.</p>
+    }
+</div>
+
+<script>
+    function toggleDeliveryDateField(selectElement, orderItemId) {
+        var deliveryDateField = document.getElementById('deliveryDateField-' + orderItemId);
+
+        if (selectElement.value === 'Approved') {
+            deliveryDateField.style.display = 'block';
+        } else {
+            deliveryDateField.style.display = 'none';
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var statusSelects = document.querySelectorAll('select[name="newStatus"]');
+        statusSelects.forEach(function (selectElement) {
+            var orderItemId = selectElement.closest('form').querySelector('input[name="orderItemId"]').value;
+            toggleDeliveryDateField(selectElement, orderItemId);  
+        });
+    });
+</script>
+

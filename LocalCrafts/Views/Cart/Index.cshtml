@@ -1,0 +1,126 @@
+﻿@model LocalCrafts.Models.Cart
+
+<!-- Shopping Cart Section Start -->
+<div class="section section-padding">
+    <div class="container">
+        <form class="cart-form" method="post" asp-action="UpdateCart">
+            <table class="cart-wishlist-table table">
+                <thead>
+                    <tr>
+                        <th class="name" colspan="2">Product</th>
+                        <th class="price">Price</th>
+                        <th class="quantity">Quantity</th>
+                        <th class="subtotal">Total</th>
+                        <th class="remove">&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Items != null && Model.Items.Any())
+                    {
+                        @foreach (var item in Model.Items)
+                        {
+                            <tr>
+                                <td class="thumbnail">
+                                    <a href="product-details.html">
+                                        <img src="@item.Product.Image" alt="product image">
+                                    </a>
+                                </td>
+                                <td class="name">
+                                    <a href="product-details.html">@item.ProductName</a>
+                                </td>
+                                <td class="price">
+                                    <span>@item.Price</span>
+                                </td>
+                                <td class="quantity">
+                                    <div class="product-quantity">
+                                        <button type="button" class="qty-btn minus" onclick="updateQuantity(@item.CartItemId, @((item.Quantity - 1) > 0 ? item.Quantity - 1 : 1))">
+                                            <i class="ti-minus"></i>
+                                        </button>
+                                        <input type="text" class="input-qty" value="@item.Quantity" readonly />
+                                        <button type="button" class="qty-btn plus" onclick="updateQuantity(@item.CartItemId, @(item.Quantity + 1))">
+                                            <i class="ti-plus"></i>
+                                        </button>
+                                    </div>
+                                </td>
+
+
+                                <td class="subtotal">
+                                    <span>@item.Subtotal</span> 
+                                </td>
+                                <td class="remove">
+                                    <button type="button" class="btn" onclick="removeFromCart(@item.ProductId)">×</button>
+                                </td>
+
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6" class="text-center">Your cart is empty.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </form>
+
+        <!-- Cart Totals -->
+        <div class="cart-totals mt-5">
+            <h2 class="title">Cart totals</h2>
+            <table>
+                <tbody>
+                    <tr class="total">
+                        <th>Total</th>
+                        <td><strong><span class="amount">@Model.Total</span></strong></td> 
+                    </tr>
+                </tbody>
+            </table>
+            <a href="@Url.Action("Index", "Checkout")" class="btn btn-dark">Proceed to Checkout</a>
+        </div>
+    </div>
+</div>
+<!-- Shopping Cart Section End -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    function updateQuantity(cartItemId, quantity) {
+        $.ajax({
+            url: '@Url.Action("UpdateQuantity", "Cart")',
+            type: 'POST',
+            data: {
+                cartItemId: cartItemId,
+                quantity: quantity
+            },
+            success: function (response) {
+                location.reload(); 
+            },
+            error: function (error) {
+                console.error("Error updating quantity:", error);
+                alert("Failed to update the quantity. Please try again.");
+            }
+        });
+    }
+    function removeFromCart(productId) {
+        $.ajax({
+            url: '@Url.Action("RemoveFromCart", "Cart")',
+            type: 'POST',
+            data: { productId: productId },
+            success: function (response) {
+                if (response.success) {
+                    $('.cart-totals .amount').text(response.total.toFixed(2));
+
+                    $(`button[onclick="removeFromCart(${productId})"]`).closest('tr').remove();
+
+                    alert("Product removed successfully.");
+                } else {
+                    alert("Failed to remove the product. Please try again.");
+                }
+            },
+            error: function (error) {
+                console.error("Error removing product:", error);
+                alert("Failed to remove the product. Please try again.");
+            }
+        });
+    }
+</script>

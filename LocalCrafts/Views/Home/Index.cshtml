@@ -1,0 +1,189 @@
+﻿
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="offcanvas-overlay"></div>
+
+<div class="offcanvas-overlay"></div>
+
+<!-- Slider main container Start -->
+<div class="section section-fluid">
+    <div class="home8-slider swiper-container">
+        <div class="swiper-wrapper">
+            <div class="home8-slide-item swiper-slide" data-swiper-autoplay="5000">
+                <div class="home8-slide-image">
+                    <img src="~/assets/images/slide-1 (1).webp" alt="Slide Image">
+                </div>
+                <div class="home8-slide-content">
+                    <span class="sub-title">Just for you </span>
+                    <h2 class="title">Pieces made with love <br>For You</h2>
+                   
+                </div>
+                <div class="home8-slide-pages">
+                    <span class="current">1</span>
+                    <span class="border"></span>
+                    <span class="total">3</span>
+                </div>
+            </div>
+            <div class="home8-slide-item swiper-slide" data-swiper-autoplay="5000">
+                <div class="home8-slide-image">
+                    <img src="~/assets/images/slider/home8/slide-2.webp" alt="Slide Image">
+                </div>
+                <div class="home8-slide-content">
+                    <span class="sub-title">Just for you </span>
+                    <h2 class="title">Dorme Jewel Holder <br>For Her</h2>
+                    <div class="link">
+                        <a href="shop.html">Shop Now</a>
+                    </div>
+                </div>
+                <div class="home8-slide-pages">
+                    <span class="current">2</span>
+                    <span class="border"></span>
+                    <span class="total">3</span>
+                </div>
+            </div>
+            <div class="home8-slide-item swiper-slide" data-swiper-autoplay="5000">
+                <div class="home8-slide-image">
+                    <img src="~/assets/images/slider/home8/slide-3.webp" alt="Slide Image">
+                </div>
+                <div class="home8-slide-content">
+                    <span class="sub-title">Just for you </span>
+                    <h2 class="title">Freshly Harvested Fruits <br>For You</h2>
+                    <div class="link">
+                        <a href="shop.html">Shop Now</a>
+                    </div>
+                </div>
+                <div class="home8-slide-pages">
+                    <span class="current">3</span>
+                    <span class="border"></span>
+                    <span class="total">3</span>
+                </div>
+            </div>
+        </div>
+        <div class="home8-slider-pagination swiper-pagination"></div>
+    </div>
+</div>
+<!-- Slider main container End -->
+
+
+
+
+
+<!-- Category Banner Style Four Section Start -->
+<div class="section section-padding" id="categories-section">
+    <div class="container">
+
+       
+
+            @await Component.InvokeAsync("Category")
+
+        </div>
+
+    </div>
+</div>
+<!-- Category Banner Style Four Section End -->
+
+
+
+
+
+
+
+<!-- Category Banner Style Five Section Start -->
+<div class="section section-padding pt-0" id="sellers-section">
+    <div class="container">
+
+        @await Component.InvokeAsync("Seller")
+
+
+    </div>
+</div>
+<!-- Category Banner Style Five Section End -->
+
+
+
+
+
+<!-- Feature Section Start -->
+<div class="section section-padding">
+    <div class="container">
+
+        <div class="row learts-mb-n30">
+
+            <div class="col-xl-3 col-lg-4 col-12 me-auto learts-mb-30">
+                <h1 class="fw-400">The difference when you shop Learts!</h1>
+            </div>
+            <div class="col-lg-8 col-12 learts-mb-30">
+                <div class="row learts-mb-n30">
+
+                    <div class="col-md-6 col-12 learts-mb-30">
+                        <p class="text-heading fw-600 learts-mb-10">Free Shipping</p>
+                        <p>Once receiving your order, we will turn your products around in 3-5 business days.</p>
+                    </div>
+
+                    <div class="col-md-6 col-12 learts-mb-30">
+                        <p class="text-heading fw-600 learts-mb-10">Free Returns</p>
+                        <p>We accept returns for freshly purchased products within 7 days from the payment.</p>
+                    </div>
+
+                    <div class="col-md-6 col-12 learts-mb-30">
+                        <p class="text-heading fw-600 learts-mb-10">Superb Quality</p>
+                        <p>We make commitments that the quality of our products will and always will be superb.</p>
+                    </div>
+
+                    <div class="col-md-6 col-12 learts-mb-30">
+                        <p class="text-heading fw-600 learts-mb-10">Free Wrapping</p>
+                        <p>Upon request, items bought as gifts from our store can receive free wrapping service.</p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<!-- Feature Section End -->
+<!-- Instagram Section Start -->
+<div class="section section-padding border-top">
+    <div class="container">
+
+        <!-- Section Title Start -->
+        <div class="section-title2 text-center">
+            <h3 class="sub-title">Follow us on Instagram</h3>
+            <h2 class="title">learts_shop</h2>
+        </div>
+        <!-- Section Title End -->
+
+        <div class="instafeed instafeed-carousel instafeed-carousel1">
+            <a class="instafeed-item" href="#">
+                <img src="~/assets/images/instagram/instagram-1.webp" alt="instagram image" />
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a class="instafeed-item" href="#">
+                <img src="~/assets/images/instagram/instagram-2.webp" alt="instagram image" />
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a class="instafeed-item" href="#">
+                <img src="~/assets/images/instagram/instagram-3.webp" alt="instagram image" />
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a class="instafeed-item" href="#">
+                <img src="~/assets/images/instagram/instagram-4.webp" alt="instagram image" />
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a class="instafeed-item" href="#">
+                <img src="~/assets/images/instagram/instagram-2.webp" alt="instagram image" />
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a class="instafeed-item" href="#">
+                <img src="~/assets/images/instagram/instagram-3.webp" alt="instagram image" />
+                <i class="fab fa-instagram"></i>
+            </a>
+        </div>
+
+    </div>
+</div>
+<!-- Instagram Section End -->
+

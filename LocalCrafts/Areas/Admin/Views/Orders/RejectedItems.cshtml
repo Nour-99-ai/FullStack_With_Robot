@@ -1,0 +1,53 @@
+﻿@model IEnumerable<LocalCrafts.Models.OrderItem>
+
+<div class="page-body-wrapper">
+    <div class="page-body">
+        <h2>Rejected Items</h2>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card card-table">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Item ID</th>
+                                            <th>Product</th>
+                                            <th>Qty</th>
+                                            <th>Subtotal</th>
+                                            <th>Customer Name</th>
+                                            <th>Customer Phone</th>
+                                            <th>Order Date</th>
+                                            <th>Seller Name</th>
+                                            <th>Seller Phone</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td>@item.OrderItemId</td>
+                                                <td>@item.ProductName</td>
+                                                <td>@item.Quantity</td>
+                                                <td>@item.Subtotal.ToString("C")</td>
+                                                <td>@item.Order.FirstName @item.Order.LastName</td>
+                                                <td>@item.Order.PhoneNumber</td>
+                                                <td>@item.Order.OrderDate.ToString("MM/dd/yyyy")</td>
+                                                <td>@item.Product.Seller.Name</td>
+                                                <td>@item.Product.Seller.PhoneNumber</td>
+                                                <td>@item.OrderItemStatus</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

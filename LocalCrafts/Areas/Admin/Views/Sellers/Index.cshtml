@@ -1,0 +1,141 @@
+﻿@model IEnumerable<LocalCrafts.Models.Seller>
+
+@{
+    ViewData["Title"] = "All Sellers";
+}
+<style>
+
+</style>
+<div class="page-body">
+    <!-- All Sellers Table Start -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card card-table">
+                    <div class="card-body">
+                        <div class="title-header option-title">
+                            <h5>All Sellers</h5>
+                            <form class="d-inline-flex">
+                                <a asp-action="Create" class="align-items-center btn btn-theme d-flex">
+                                    <i data-feather="plus-square"></i> Add New
+                                </a>
+                            </form>
+                        </div>
+                        <div class="table-responsive theme-scrollbar">
+                            <table class="table seller-table" id="table_id">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <input id="checkall" class="custom-checkbox" type="checkbox" name="text">
+                                        </th>
+                                        <th>Seller Image</th>
+                                        <th>Seller Name</th>
+                                        <th>Email</th>
+                                        <th>Bio</th>
+                                        <th>Phone Number</th> <!-- New column for Phone Number -->
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <input class="custom-checkbox" type="checkbox" name="text">
+                                            </td>
+                                            <td>
+                                                <div class="table-image">
+                                                    <img src="@item.Image" alt="@item.Name" style="width: 100px; height: 100px;" />
+                                                </div>
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Email)
+                                            </td>
+                                            <td style="max-width: 300px; word-wrap: break-word; white-space: normal;">
+                                                @{
+                                                    var bio = item.Bio;
+                                                    var bioWords = bio.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                                                    var first10Words = bioWords.Take(10);
+                                                    var shortenedBio = string.Join(" ", first10Words);
+                                                }
+
+                                                @if (bioWords.Length > 10)
+                                                {
+                                                    <span class="bio-shortened" data-id="@item.Id" style="display: inline;">
+                                                        @shortenedBio...
+                                                    </span>
+                                                    <span class="bio-full" data-id="@item.Id" style="display: none;">
+                                                        @bio
+                                                    </span>
+                                                    <a href="javascript:void(0);" class="see-more" data-id="@item.Id">See More</a>
+                                                }
+                                                else
+                                                {
+                                                    @bio
+                                                }
+                                            </td>
+
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.PhoneNumber) <!-- Display Phone Number -->
+                                            </td>
+                                            <td>
+                                                <ul class="d-flex align-items-center justify-content-center">
+                                                    <li>
+                                                        <a asp-action="Details" asp-route-id="@item.Id">
+                                                            <i class="ri-eye-line"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a asp-action="Edit" asp-route-id="@item.Id">
+                                                            <i class="ri-pencil-line"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a asp-action="Delete" asp-route-id="@item.Id">
+                                                            <i class="ri-delete-bin-line"></i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- All Sellers Table Ends-->
+</div>
+<script>
+    function toggleBio(sellerId) {
+        var bioShortened = document.querySelector(`.bio-shortened[data-id='${sellerId}']`);
+        var bioFull = document.querySelector(`.bio-full[data-id='${sellerId}']`);
+        var seeMoreLink = document.querySelector(`.see-more[data-id='${sellerId}']`);
+
+        if (bioShortened.style.display === 'none') {
+            bioShortened.style.display = 'inline';
+            bioFull.style.display = 'none';
+            seeMoreLink.textContent = 'See More';
+        } else {
+            bioShortened.style.display = 'none';
+            bioFull.style.display = 'inline';
+            seeMoreLink.textContent = 'See Less';
+        }
+    }
+
+    // Attach the toggleBio function to all "See More" links
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.see-more').forEach(link => {
+            link.addEventListener('click', function () {
+                var sellerId = this.getAttribute('data-id');
+                toggleBio(sellerId);
+            });
+        });
+    });
+</script>

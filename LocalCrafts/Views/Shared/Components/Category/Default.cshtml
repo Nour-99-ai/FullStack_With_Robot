@@ -1,0 +1,37 @@
+﻿@model IEnumerable<LocalCrafts.Models.Category>
+
+<!-- Category Banner Style Four Section Start -->
+<div class="section section-padding">
+    <div class="container">
+
+        <!-- Section Title Start -->
+        <div class="section-title2 text-center">
+            <h2 class="title">Categoreis</h2>
+            <p>Browse a wide range of distinctive pieces of arts you could never find elsewhere.</p>
+        </div>
+        <!-- Section Title End -->
+
+        <div class="row row-cols-lg-4 row-cols-sm-2 row-cols-1 learts-mb-n40">
+            @foreach (var category in Model)
+            {
+                <div class="col learts-mb-40">
+                    <div class="category-banner4">
+                        <a asp-controller="Product" asp-action="CategoryProducts" asp-route-categoryId="@category.CategoryId" class="inner">
+                            <div class="image">
+                                <img src="@category.Image" class="img-fluid" alt="@category.CategoryName">
+                            </div>
+                            <div class="content" data-bg-color="#f4ede7">
+                                <h3 class="title">@category.CategoryName</h3>
+                            </div>
+                        </a>
+                      
+
+                    </div>
+                </div>
+            }
+        </div>
+
+
+    </div>
+</div>
+<!-- Category Banner Style Four Section End -->

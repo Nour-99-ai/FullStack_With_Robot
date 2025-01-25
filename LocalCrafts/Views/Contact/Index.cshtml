@@ -1,0 +1,55 @@
+﻿<!-- Contact Information & Map Section Start -->
+<div class="section section-padding">
+    <div class="container">
+        <!-- Section Title Start -->
+        <div class="section-title2 text-center">
+            <h2 class="title">Keep in touch with us</h2>
+            <p>Been tearing your hair out to find the perfect gift for your loved ones? Try visiting our nationwide local stores. You can also contact us to become partner or distributor. Call us, send us an email or make an appointment now.</p>
+        </div>
+        <!-- Section Title End -->
+        <!-- Contact Form Section Start -->
+        <div class="section section-padding pt-0">
+            <div class="container">
+                <!-- Section Title Start -->
+                <div class="section-title2 text-center">
+                    <h2 class="title">Send a message</h2>
+                </div>
+                <!-- Section Title End -->
+
+                <div class="row">
+                    <div class="col-lg-8 col-12 mx-auto">
+                        <div class="contact-form">
+                            <form method="post" asp-action="SendMessage">
+                                <div class="form-group">
+                                    <label for="Name">Your Name</label>
+                                    <input type="text" class="form-control" id="Name" name="Name" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="Email">Your Email</label>
+                                    <input type="email" class="form-control" id="Email" name="Email" required>
+                                </div>
+
+                                <div class="col-md-6 col-12 learts-mb-30">
+                                    <input type="text" placeholder="Phone Number" name="Phone" required>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="Message">Message</label>
+                                    <textarea class="form-control" id="Message" name="Message" rows="4" required></textarea>
+                                </div>
+
+                                <div class="col-12 text-center learts-mb-30">
+                                    <button type="submit" class="btn btn-dark btn-outline-hover-dark">Submit</button>
+                                </div>
+                            </form>
+
+                            <p class="form-messege"></p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- Contact Form Section End -->

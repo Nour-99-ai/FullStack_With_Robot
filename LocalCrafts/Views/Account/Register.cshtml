@@ -1,0 +1,125 @@
+﻿@model LocalCrafts.Models.ViewModels.RegisterViewModel
+
+<style>
+    .form-control {
+        height: 50px;
+        border-radius: 10px;
+        font-size: 16px;
+        border: 2px solid #ccc;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        padding-left: 15px;
+        appearance: none;
+        background-position: right 15px center;
+        background-repeat: no-repeat;
+        background-size: 15px;
+    }
+
+    .form-input {
+        position: relative;
+        margin-bottom: 20px;
+    }
+
+        .form-input select {
+            text-align: center; /* Center-align text in the dropdown */
+            text-align-last: center; /* Ensure the placeholder is also centered */
+        }
+
+        .form-input i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+            color: #888;
+        }
+</style>
+<section class="page-head-section">
+    <div class="container page-heading">
+        <h2 class="h3 mb-3 text-white text-center">Create Account</h2>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb flex-lg-nowrap justify-content-center justify-content-lg-start">
+                <li class="breadcrumb-item">
+                    <a href="index.html"><i class="ri-home-line"></i>Home</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Signup</li>
+            </ol>
+        </nav>
+    </div>
+</section>
+
+<section class="login-hero-section section-b-space">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-5 col-lg-6 col-md-10 m-auto">
+                <div class="login-data">
+                    <form asp-action="Register" method="post" class="auth-form">
+                        <h2 class="text-center">Sign up</h2>
+                        <h5 class="text-center">
+                            or
+                            <a asp-action="Login"><span class="theme-color">login to your account</span></a>
+                        </h5>
+
+                        <!-- Name Field -->
+                        <div class="form-input">
+                            <input asp-for="Name" class="form-control" placeholder="Enter your name" />
+                            <i class="ri-user-3-line"></i>
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                        <!-- Phone Number Field -->
+                        <div class="form-input">
+                            <input asp-for="PhoneNumber"
+                                   class="form-control"
+                                   placeholder="Enter your number"
+                                   value="+962"
+                                   id="PhoneNumber"
+                                   onfocus="handleFocus(this)"
+                                   onblur="handleBlur(this)" />
+                            <i class="ri-phone-line"></i>
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
+
+                        <!-- Password Field -->
+                        <div class="form-input">
+                            <input asp-for="Password" class="form-control" placeholder="Enter your password" type="password" />
+                            <i class="ri-lock-password-line"></i>
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-input">
+                            <select asp-for="Role" class="form-control">
+                                <option value="" disabled selected>Select your role</option>
+                                <option value="Seller">Seller</option>
+                                <option value="Buyer">Buyer</option>
+                            </select>
+                            <i class="ri-user-settings-line"></i>
+                            <span asp-validation-for="Role" class="text-danger"></span>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn theme-btn submit-btn w-100 rounded-2">CONTINUE</button>
+
+                        <p class="fw-normal content-color text-center">
+                            By creating an account, I accept the
+                            <span class="fw-semibold">Terms & Conditions & Privacy Policy</span>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function handleFocus(input) {
+        if (input.value === '+962') {
+            input.value = '';
+        }
+    }
+
+    function handleBlur(input) {
+        if (input.value === '') {
+            input.value = '+962';
+        }
+    }
+</script>

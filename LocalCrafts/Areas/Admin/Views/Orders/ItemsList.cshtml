@@ -1,0 +1,56 @@
+﻿@model IEnumerable<LocalCrafts.Models.OrderItem>
+
+<div class="page-body">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card card-table">
+                    <div class="card-body">
+                        <div class="title-header option-title">
+                            <h5>Item List</h5>
+                        </div>
+                        <div>
+                            <div class="table-responsive theme-scrollbar">
+                                <table class="table category-table dataTable no-footer" id="table_id">
+                                    <thead>
+                                        <tr>
+                                            <th>Reference</th>
+                                            <th>ItemID</th>
+                                            <th>OrderID</th>
+                                            <th>Product</th>
+                                            <th>Qty</th>
+                                            <th>Subtotal</th>
+                                            <th>Delivery Date</th>
+                                            <th>Seller Name</th>
+                                            <th class="text-center">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.Reverse().Select((value, index) => new { value, index }))
+                                        {
+                                            <tr>
+                                                <td>@(item.index + 1)</td> 
+                                                <td>@item.value.OrderItemId</td>
+                                                <td>@item.value.OrderId</td>
+                                                <td>@item.value.ProductName</td>
+                                                <td>@item.value.Quantity</td>
+                                                <td>@item.value.Subtotal.ToString("C")</td>
+                                                <td>@string.Format("{0:MM/dd/yyyy}", item.value.DeliveryDate)</td>
+                                                <td>@item.value.Product.Seller.Name</td>
+                                                <td class="text-center">
+                                                    <a href="@Url.Action("ItemDetails", "Orders", new { id = item.value.OrderItemId })" class="btn btn-sm btn-primary">
+                                                        See Details
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,160 @@
+﻿@model LocalCrafts.Models.Product
+
+@{
+    ViewData["Title"] = "Product Details";
+}
+
+<!-- Page Title/Header Start -->
+<div class="page-title-section section" data-bg-image="assets/images/bg/page-title-1.webp">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="page-title">
+                    <h1 class="title">Shop</h1>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item"><a href="/Products">Products</a></li>
+                        <li class="breadcrumb-item active">@Model.Name</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page Title/Header End -->
+<!-- Single Products Section Start -->
+<div class="section section-padding border-bottom">
+    <div class="container">
+        <div class="row learts-mb-n40">
+
+            <!-- Product Images Start -->
+            <div class="col-lg-6 col-12 learts-mb-40">
+                <div class="product-images">
+                    <button class="product-gallery-popup hintT-left" data-hint="Click to enlarge" data-images='[
+                            {"src": "@Model.Image", "w": 700, "h": 1100}
+                        ]'>
+                        <i class="fas fa-expand"></i>
+                    </button>
+                    <div class="product-gallery-slider">
+                        <div class="product-zoom" data-image="@Model.Image">
+                            <img src="@Model.Image" alt="@Model.Name">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Product Images End -->
+            <!-- Product Summery Start -->
+            <div class="col-lg-6 col-12 learts-mb-40">
+                <div class="product-summery">
+                    <div class="product-nav">
+                        <a href="#"><i class="fas fa-long-arrow-alt-left"></i></a>
+                        <a href="#"><i class="fas fa-long-arrow-alt-right"></i></a>
+                    </div>
+                    <div class="product-ratings">
+                        <span class="star-rating">
+                            <span class="rating-active" style="width: 100%;">ratings</span>
+                        </span>
+                        <a href="#reviews" class="review-link">(<span class="count">3</span> customer reviews)</a>
+                    </div>
+                    <h3 class="product-title">@Model.Name</h3>
+                    <div class="product-price">@Model.Price.ToString("C")</div>
+                    <div class="product-description">
+                        <p>@Model.Description</p>
+                    </div>
+                    <div class="product-variations">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td class="label"><span>Quantity</span></td>
+                                    <td class="value">
+                                        <div class="product-quantity">
+                                            <span class="qty-btn minus"><i class="ti-minus"></i></span>
+                                            <input type="text" class="input-qty" value="1" min="1" max="@Model.Quantity">
+                                            <span class="qty-btn plus"><i class="ti-plus"></i></span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Product Buttons -->
+                    <div class="product-buttons">
+                        <a href="#" class="btn btn-icon btn-outline-body btn-hover-dark hintT-top" data-hint="Add to Wishlist">
+                            <i class="far fa-heart"></i>
+                        </a>
+                        <a href="@Url.Action("AddToCart", "Cart", new { productId = Model.ProductId, sellerId = Model.Seller?.Id })"
+                           class="btn btn-dark btn-outline-hover-dark add-to-cart"
+                           data-product-id="@Model.ProductId" data-seller-id="@Model.Seller?.Id">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </a>
+                    </div>
+
+
+                    <div class="product-meta">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td class="label"><span>Category</span></td>
+                                    <td class="value">
+                                        <ul class="product-category">
+                                            <li>
+                                                <a asp-controller="Product" asp-action="CategoryProducts" asp-route-id="@Model.Category?.CategoryId">
+                                                    @Model.Category?.CategoryName
+                                                </a>
+                                                                                                
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="label"><span>Seller</span></td>
+                                    <td class="value">
+                                        <ul class="product-category">
+                                            <li>
+                                                <a asp-controller="Product" asp-action="SellerProducts" asp-route-id="@Model.Seller?.Id">
+                                                    @Model.Seller?.Name
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- Product Summery End -->
+
+        </div>
+    </div>
+</div>
+<!-- Single Products Section End -->
+<script>
+    $(document).on('click', '.add-to-cart', function (e) {
+        e.preventDefault(); 
+        const url = $(this).attr('href'); 
+        const productId = $(this).data('product-id'); 
+
+        $.ajax({
+            url: url,
+            method: 'POST',
+            data: { productId: productId },
+            success: function (response) {
+                if (response.success) {
+                    $('.cart-count').text(response.totalItems); 
+
+                    const cartHtml = response.cartHtml; 
+                    $('.minicart-product-list').html(cartHtml); 
+                    $('.sub-total .amount').text(response.total.toFixed(2)); 
+
+                    alert('Product added to cart successfully!');
+                } else {
+                    alert('Failed to add product to the cart.');
+                }
+            },
+            error: function () {
+                alert('An error occurred while adding the product to the cart.');
+            }
+        });
+    });
+</script>

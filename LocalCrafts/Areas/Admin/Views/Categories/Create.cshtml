@@ -1,0 +1,61 @@
+﻿@model LocalCrafts.Models.Category
+
+@{
+    ViewData["Title"] = "Create";
+}
+<div class="page-body-wrapper">
+    <div class="page-body">
+<!-- New Category Add Start -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Category Information</h5>
+                        </div>
+                        <div class="card-body">
+                            <form asp-action="Create" enctype="multipart/form-data" method="post" class="form-card">
+                                <div asp-validation-summary="All" class="text-danger"></div>
+                                <div class="input-items">
+                                    <div class="row gy-3">
+                                        <!-- Name Field -->
+                                        <div class="col-12">
+                                            <div class="input-box">
+                                                <h6>Name</h6>
+                                                <input asp-for="CategoryName" class="form-control" placeholder="Enter Category Name" />
+                                                <span asp-validation-for="CategoryName" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Category Image Upload -->
+                                        <div class="col-12">
+                                            <div class="input-box">
+                                                <h6>Category Image</h6>
+                                                <input asp-for="ImageFile" class="form-control" type="file" required />
+                                                <span asp-validation-for="ImageFile" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Submit Button -->
+                                        <div class="col-12">
+                                            <button type="submit" class="btn restaurant-button">Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <div>
+                                <a asp-action="Index" class="btn btn-link mt-3">Back to List</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- New Category Add End -->
+    </div>
+</div>
+
